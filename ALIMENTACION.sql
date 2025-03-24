@@ -1,10 +1,33 @@
+DROP DATABASE IF EXISTS ALIMENTACION;
+CREATE DATABASE ALIMENTACION;
+USE ALIMENTACION;
+
 -- TABLA DE ÍTEMS DE COMIDAS
 -- ========================
+
+-- 1. TABLA DE ALIMENTOS
+CREATE TABLE foods (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    kcal_per_100g FLOAT NOT NULL,
+    protein_per_100g FLOAT DEFAULT 0,
+    carbs_per_100g FLOAT DEFAULT 0,
+    fat_per_100g FLOAT DEFAULT 0,
+    protein_source ENUM('animal', 'vegetal', 'mixto', 'sin_proteina') DEFAULT 'sin_proteina'
+);
+-- 2. TABLA DE COMIDAS
+CREATE TABLE meals (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    time TIME
+);
+
+-- 3. TABLA DE ÍTEMS DE COMIDAS
 CREATE TABLE meal_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    meal_id INT,
-    food_id INT,
-    amount_g FLOAT,
+    meal_id INT NOT NULL,
+    food_id INT NOT NULL,
+    amount_g FLOAT NOT NULL,
     total_kcal FLOAT,
     total_protein FLOAT,
     total_carbs FLOAT,
@@ -12,38 +35,30 @@ CREATE TABLE meal_items (
     FOREIGN KEY (meal_id) REFERENCES meals(id),
     FOREIGN KEY (food_id) REFERENCES foods(id)
 );
+-- 2. Trigger para calcular automáticamente los totales
+DELIMITER //
 
--- ========================
--- CONFIGURACIÓN FINAL PARA CLASIFICACIÓN
--- ========================
-SET SQL_SAFE_UPDATES = 0;
+CREATE TRIGGER calc_meal_item_totals
+BEFORE INSERT ON meal_items
+FOR EACH ROW
+BEGIN
+    DECLARE kcal FLOAT;
+    DECLARE protein FLOAT;
+    DECLARE carbs FLOAT;
+    DECLARE fat FLOAT;
 
--- NOTA: Inserta aquí tus datos de alimentos, comidas y composiciones usando INSERT
+    SELECT kcal_per_100g, protein_per_100g, carbs_per_100g, fat_per_100g
+    INTO kcal, protein, carbs, fat
+    FROM foods
+    WHERE id = NEW.food_id;
 
--- CLASIFICACIÓN PROTEICA POSTERIOR A INSERTS
-UPDATE foods SET protein_source = 'animal' WHERE name IN (
-    'Salmon', 'Dorada', 'Huevos', 'Pechuga de Pollo', 'Pechuga de Pavo',
-    'Solomillo de Ternera', 'Yogur natural', 'Queso Fresco Batido',
-    'Queso Burgos desnat.', 'Berberechos', 'Salmon ahumado',
-    'Atún (lata)', 'Huevo entero (1 huevo)', 'Claras de huevo (2 claras)'
-);
-
-UPDATE foods SET protein_source = 'vegetal' WHERE name IN (
-    'Lenteja pardina', 'Garbanzos', 'Judia Mungo', 'Judia Verde', 'Alubia roja', 'Frijoles negros',
-    'Quinoa real', 'Trío de quinoa', 'Pipas', 'Semillas de cáñamo', 'Almendras',
-    'Avena', 'Açaí', 'Maca', 'Alga espirulina'
-);
-
-UPDATE foods SET protein_source = 'mixto' WHERE name IN ('Chocolate negro');
-
-UPDATE foods SET protein_source = 'sin_proteina' WHERE protein_per_100g IS NULL OR protein_per_100g = 0;
-
-SET SQL_SAFE_UPDATES = 1;
-
--- ========================
--- DESACTIVAR MODO SEGURO PARA UPDATES MASIVOS
--- ========================
-SET SQL_SAFE_UPDATES = 0;
+    SET NEW.total_kcal = kcal * NEW.amount_g / 100;
+    SET NEW.total_protein = protein * NEW.amount_g / 100;
+    SET NEW.total_carbs = carbs * NEW.amount_g / 100;
+    SET NEW.total_fat = fat * NEW.amount_g / 100;
+END;
+//
+DELIMITER ;
 
 -- ========================
 -- DATOS DE ALIMENTOS
@@ -280,7 +295,6 @@ INSERT INTO meal_items (meal_id, food_id, amount_g, total_kcal, total_protein, t
 INSERT INTO meal_items (meal_id, food_id, amount_g, total_kcal, total_protein, total_carbs, total_fat) VALUES
 (15, 6, 400, 720, 108, 0, 32);
 
-
 -- ========================
 -- Archivo: tentempie_pipas.sql
 -- ========================
@@ -317,5 +331,6 @@ UPDATE foods SET protein_source = 'vegetal' WHERE name IN (
 UPDATE foods SET protein_source = 'mixto' WHERE name IN ('Chocolate negro');
 UPDATE foods SET protein_source = 'sin_proteina'
 WHERE protein_per_100g IS NULL OR protein_per_100g = 0;
+
 
 
