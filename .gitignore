@@ -1,0 +1,11 @@
+# Ignorar archivos temporales, compilados, privados o pesados
+__pycache__/
+*.pyc
+*.pyo
+*.db
+*.sqlite
+*.log
+.env
+venv_313/
+*.xlsx
+.DS_Store

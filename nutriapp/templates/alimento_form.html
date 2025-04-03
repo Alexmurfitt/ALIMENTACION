@@ -1,0 +1,25 @@
+<!-- templates/alimento_form.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nuevo Alimento</title>
+</head>
+<body>
+    <h2>➕ Añadir nuevo alimento</h2>
+    <form method="POST">
+        <label>Nombre:</label><br>
+        <input type="text" name="nombre"><br><br>
+
+        <label>Proteínas (por 100g):</label><br>
+        <input type="number" step="0.01" name="proteinas"><br><br>
+
+        <label>Carbohidratos (por 100g):</label><br>
+        <input type="number" step="0.01" name="carbohidratos"><br><br>
+
+        <label>Grasas (por 100g):</label><br>
+        <input type="number" step="0.01" name="grasas"><br><br>
+
+        <button type="submit">Guardar alimento</button>
+    </form>
+</body>
+</html>

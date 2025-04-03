@@ -1,0 +1,25 @@
+<!-- templates/resumen.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resumen Nutricional</title>
+</head>
+<body>
+    <h2>📊 Resumen nutricional de {{ datos.nombre }} ({{ datos.cantidad }}g)</h2>
+    <ul>
+        <li>🥩 Proteínas: {{ datos.proteinas|round(2) }} g</li>
+        <li>🍞 Carbohidratos: {{ datos.carbohidratos|round(2) }} g</li>
+        <li>🥑 Grasas: {{ datos.grasas|round(2) }} g</li>
+        <li>🔥 Calorías: {{ datos.kcal|round(2) }} kcal</li>
+    </ul>
+
+    {% if datos.micros %}
+    <h3>🌿 Micronutrientes:</h3>
+    <ul>
+        {% for micro in datos.micros %}
+            <li>{{ micro.nombre }}: {{ micro.valor|round(2) }} mg</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>
