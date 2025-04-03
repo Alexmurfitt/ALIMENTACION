@@ -1,42 +1,45 @@
-# NutriApp 🍏
+# 🍏 NutriApp
 
-Sistema de seguimiento de alimentos, macronutrientes y micronutrientes.  
-Hecho en Python + Flask + MySQL.
+**NutriApp** es un sistema de seguimiento de alimentos que te permite registrar alimentos con sus macronutrientes y micronutrientes, y calcular su aporte nutricional según la cantidad consumida.
 
-## Funcionalidades:
-- Registro de alimentos
-- Cálculo de nutrientes por gramos
-- Visualización de resumen nutricional
+> Hecho en **Python + Flask + MySQL**
 
+---
 
-////////////////////////////////////////////////////
-UBICACION: tree
+## ✅ Funcionalidades
 
-└── ALIMENTACION
-    ├── data
-    │   ├── DIETA COMPLETA.xlsx
-    │   └── README.txt
-    ├── nutriapp
-    │   ├── app.py
-    │   ├── config.py
-    │   ├── __init__.py
-    │   └── templates
-    │       ├── alimento_form.html
-    │       ├── index.html
-    │       └── resumen.html
-    ├── __pycache__
-    │   └── config.cpython-313.pyc
-    └── scripts
-        ├── ALIMENTACION.sql
-        ├── ASIG_ALIM_CANT.py
-        ├── ASIG_ALIM.py
-        └── CONSULTAS_ALIMENTACION.sql
+- Registro de alimentos (con macros y micros)
+- Cálculo automático por gramos introducidos
+- Visualización de resumen nutricional en interfaz web
 
-7 directories, 13 files
+---
 
-/////////////////////////////////////////////////////
+## 🗂️ Estructura del proyecto
 
-Como utilizar el script:
+```bash
+ALIMENTACION/
+├── data/               # Documentos de apoyo (Excel, textos)
+│   └── DIETA COMPLETA.xlsx
+│
+├── nutriapp/           # Código principal de la app Flask
+│   ├── app.py
+│   ├── config.py
+│   ├── __init__.py
+│   └── templates/
+│       ├── alimento_form.html
+│       ├── index.html
+│       └── resumen.html
+│
+├── scripts/            # SQL y scripts de utilidad
+│   ├── ALIMENTACION.sql
+│   ├── ASIG_ALIM.py
+│   ├── ASIG_ALIM_CANT.py
+│   └── CONSULTAS_ALIMENTACION.sql
+│
+├── README.md
+└── __pycache__/
+
+▶️ Ejemplo de uso del script en terminal
 
 Nombre del alimento: Avena
 Proteínas: 11
@@ -49,9 +52,39 @@ Nombre del micronutriente: calcio
 Valor: 52
 Nombre del micronutriente: fin
 ✅ Alimento añadido.
-...
 
-fin
+🚀 Cómo ejecutar el proyecto (modo local)
 
-//////////////////////////////////////////////////
+   1.Clona el repositorio:
+git clone git@github.com:Alexmurfitt/ALIMENTACION.git
+cd ALIMENTACION
 
+   2 Crea y activa un entorno virtual:
+
+python3.13 -m venv venv
+source venv/bin/activate
+
+    Instala dependencias:
+
+pip install flask mysql-connector-python
+
+    Crea la base de datos desde:
+
+scripts/ALIMENTACION.sql
+Lanza la app:
+
+cd nutriapp
+python app.py
+
+Abre tu navegador y entra en:
+
+http://127.0.0.1:5000
+
+✍️ Autor
+Alexander Murfitt Santana
+
+🔗 GitHub
+📜 Licencia
+
+Este proyecto está bajo la licencia MIT.
+¡Siéntete libre de usarlo, mejorarlo y compartirlo!
