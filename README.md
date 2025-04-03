@@ -39,7 +39,7 @@ ALIMENTACION/
 ├── README.md
 └── __pycache__/
 
-▶️ Ejemplo de uso del script en terminal
+##🧪Ejemplo de uso del script en terminal
 
 Nombre del alimento: Avena
 Proteínas: 11
@@ -53,25 +53,26 @@ Valor: 52
 Nombre del micronutriente: fin
 ✅ Alimento añadido.
 
-🚀 Cómo ejecutar el proyecto (modo local)
+## 🚀 Cómo ejecutar el proyecto (modo local)
 
-   1.Clona el repositorio:
+1.Clona el repositorio:
 git clone git@github.com:Alexmurfitt/ALIMENTACION.git
 cd ALIMENTACION
 
-   2 Crea y activa un entorno virtual:
+2.Crea y activa un entorno virtual:
 
 python3.13 -m venv venv
 source venv/bin/activate
 
-    Instala dependencias:
+3.Instala dependencias:
 
 pip install flask mysql-connector-python
 
-    Crea la base de datos desde:
+4.Crea la base de datos desde:
 
 scripts/ALIMENTACION.sql
-Lanza la app:
+
+5.Lanza la app:
 
 cd nutriapp
 python app.py
@@ -80,11 +81,13 @@ Abre tu navegador y entra en:
 
 http://127.0.0.1:5000
 
-✍️ Autor
+##✍️ Autor
 Alexander Murfitt Santana
 
-🔗 GitHub
-📜 Licencia
+🔗 GitHub-Alexmurfitt
 
+##📜 Licencia
 Este proyecto está bajo la licencia MIT.
+
+
 ¡Siéntete libre de usarlo, mejorarlo y compartirlo!
